@@ -69,11 +69,16 @@ nav {
   height: 60px;
 }
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--white);
   letter-spacing: -.5px;
+  text-decoration: none;
 }
+.nav-logo:hover { text-decoration: none; }
 .nav-logo span { color: var(--teal); }
 .nav-links { display: flex; gap: 28px; list-style: none; }
 .nav-links a {
