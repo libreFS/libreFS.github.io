@@ -60,7 +60,7 @@ jobs:
           cache: pip
 
       - name: Install MkDocs + Material
-        run: pip install mkdocs-material mike
+        run: pip install -r requirements.txt
 
       - name: Build MkDocs
         run: |
