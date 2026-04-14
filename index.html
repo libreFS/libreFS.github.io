@@ -8,21 +8,23 @@
   <meta property="og:title" content="libreFS — Community S3-Compatible Object Storage">
   <meta property="og:description" content="Free, open-source S3-compatible object storage. WebUI, LDAP/OIDC, distributed mode — preserved for the community.">
   <meta property="og:url" content="https://librefs.org">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 48'><rect x='0' y='0' width='44' height='12' rx='6' fill='%230ea5e9'/><rect x='0' y='18' width='44' height='12' rx='6' fill='%230ea5e9' opacity='.55'/><rect x='0' y='36' width='44' height='12' rx='6' fill='%230ea5e9' opacity='.22'/></svg>">
 </head>
 <body>
 
-<!-- ── Navigation ─────────────────────────────────────────────────────────── -->
+<!-- ── Nav ──────────────────────────────────────────────────────────────────── -->
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="/">
-      <svg width="26" height="30" viewBox="0 0 44 48" aria-hidden="true">
+      <svg width="24" height="28" viewBox="0 0 44 48" aria-hidden="true">
         <rect x="0" y="0"  width="44" height="12" rx="6" fill="#0ea5e9"/>
         <rect x="0" y="18" width="44" height="12" rx="6" fill="#0ea5e9" opacity=".55"/>
         <rect x="0" y="36" width="44" height="12" rx="6" fill="#0ea5e9" opacity=".22"/>
       </svg>
-      libre<span>FS</span>
+      <span class="nav-logo-word">libre<span>FS</span></span>
     </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="#why">Why libreFS</a></li>
@@ -31,70 +33,116 @@
       <li><a href="downloads.html">Downloads</a></li>
       <li><a href="#contribute">Contribute</a></li>
       <li>
-        <a href="https://github.com/libreFS/libreFS" class="nav-gh" target="_blank" rel="noopener">
+        <a href="https://github.com/libreFS/libreFS" class="nav-cta-gh" target="_blank" rel="noopener">
           <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           GitHub
         </a>
       </li>
       <li>
-        <a href="downloads.html" class="nav-download">
+        <a href="downloads.html" class="nav-cta-dl">
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download
         </a>
       </li>
     </ul>
-    <button class="nav-hamburger" id="nav-toggle" aria-label="Toggle menu">
+    <button class="nav-hamburger" id="nav-toggle" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- ── Hero ───────────────────────────────────────────────────────────────── -->
+<!-- ── Hero ─────────────────────────────────────────────────────────────────── -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-badge">AGPL-3.0 · Community Maintained</div>
-    <h1>Object storage that<br><span>stays free.</span></h1>
-    <p class="hero-sub">
-      libreFS is a community fork of MinIO — preserving the full-featured,
-      open-source S3-compatible object store that everyone can run, forever.
-    </p>
-    <div class="hero-actions">
-      <a href="downloads.html" class="btn btn-primary">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download
-      </a>
-      <a href="#quickstart" class="btn btn-outline">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        Quick Start
-      </a>
-      <a href="https://github.com/libreFS/libreFS" class="btn btn-outline" target="_blank" rel="noopener">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-        GitHub
-      </a>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        AGPL-3.0 &nbsp;·&nbsp; Community Maintained
+      </div>
+      <h1>Object storage<br>that <em>stays free.</em></h1>
+      <p class="hero-sub">
+        libreFS is a community fork of MinIO — preserving the full-featured,
+        open-source S3-compatible object store that organizations depend on,
+        permanently under AGPL-3.0.
+      </p>
+      <div class="hero-actions">
+        <a href="downloads.html" class="btn btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download libreFS
+        </a>
+        <a href="#quickstart" class="btn btn-outline-white">Quick Start</a>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          100% S3 API compatible
+        </div>
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Linux · macOS · Windows · Docker
+        </div>
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Drop-in MinIO replacement
+        </div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="hero-stat-num">100%</span>
-        <span class="hero-stat-label">S3 Compatible</span>
+
+    <!-- Terminal mockup -->
+    <div class="terminal" role="img" aria-label="libreFS server startup output">
+      <div class="terminal-bar">
+        <span class="terminal-dot terminal-dot-r"></span>
+        <span class="terminal-dot terminal-dot-y"></span>
+        <span class="terminal-dot terminal-dot-g"></span>
+        <span class="terminal-title">Terminal</span>
       </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">AGPL&#8209;3</span>
-        <span class="hero-stat-label">Free Forever</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">5+</span>
-        <span class="hero-stat-label">Platforms</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">WebUI</span>
-        <span class="hero-stat-label">LDAP &amp; OIDC</span>
+      <div class="terminal-body">
+        <span class="t-line"><span class="t-prompt">$ </span><span class="t-cmd">librefs</span> <span class="t-value">server</span> <span class="t-path">/data</span> <span class="t-flag">--console-address</span> <span class="t-value">:9001</span></span>
+        <span class="t-blank"></span>
+        <span class="t-line"><span class="t-box-line">╔══════════════════════════════════════╗</span></span>
+        <span class="t-line"><span class="t-box-line">║</span>  <span class="t-info">libreFS Object Storage</span>              <span class="t-box-line">║</span></span>
+        <span class="t-line"><span class="t-box-line">║</span>  <span class="t-key">Copyright:</span> <span class="t-val">2026 libreFS contributors</span>  <span class="t-box-line">║</span></span>
+        <span class="t-line"><span class="t-box-line">║</span>  <span class="t-key">License:</span>   <span class="t-val">GNU AGPL v3.0</span>              <span class="t-box-line">║</span></span>
+        <span class="t-line"><span class="t-box-line">╚══════════════════════════════════════╝</span></span>
+        <span class="t-blank"></span>
+        <span class="t-line"><span class="t-key">API:      </span><span class="t-info">http://0.0.0.0:9000</span></span>
+        <span class="t-line"><span class="t-key">Console:  </span><span class="t-info">http://0.0.0.0:9001</span></span>
+        <span class="t-blank"></span>
+        <span class="t-line"><span class="t-key">RootUser: </span><span class="t-val">minioadmin</span></span>
+        <span class="t-line"><span class="t-key">RootPass: </span><span class="t-val">minioadmin</span></span>
+        <span class="t-blank"></span>
+        <span class="t-line"><span class="t-ok">●</span> <span class="t-val">1 Online, 0 Offline.</span></span>
+        <span class="t-blank"></span>
+        <span class="t-line"><span class="t-prompt">$ </span><span class="t-cursor"></span></span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Why libreFS ─────────────────────────────────────────────────────────── -->
-<section class="section" id="why">
+<!-- ── Stats ─────────────────────────────────────────────────────────────────── -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">S3 API Compatible</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">AGPL&#8209;3</span>
+      <span class="stat-label">Free Forever</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Platforms Supported</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">v1</span>
+      <span class="stat-label">First Release · Apr 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Why ───────────────────────────────────────────────────────────────────── -->
+<section class="section section-light" id="why">
   <div class="container">
     <div class="why-grid">
       <div class="why-text">
@@ -108,96 +156,108 @@
         <p>
           The last fully open-source MinIO release was <strong>April 22, 2025</strong>.
           libreFS is forked from that exact commit, maintained by the community to
-          keep all those features free and open under AGPL-3.0 — permanently.
+          keep all those features free and open, permanently.
         </p>
         <ul class="timeline">
           <li>
-            <span class="tl-date">Apr&nbsp;2025</span>
+            <span class="tl-date">Apr 2025</span>
             <span>MinIO's last fully open-source release (<code>RELEASE.2025-04-22</code>)</span>
           </li>
           <li>
-            <span class="tl-date">May&nbsp;2025</span>
+            <span class="tl-date">May 2025</span>
             <span class="tl-bad">MinIO moves WebUI, LDAP/OIDC &amp; distributed mode to AIStor</span>
           </li>
           <li>
-            <span class="tl-date">Apr&nbsp;2026</span>
+            <span class="tl-date">Apr 2026</span>
             <span class="tl-good">libreFS v1 — first community release, all features preserved</span>
           </li>
         </ul>
       </div>
       <div class="why-cards">
-        <div class="why-box">
-          <div class="why-box-icon">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <div class="why-card">
+          <div class="why-card-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <h3>Not a protest — a commitment</h3>
-          <p>libreFS isn't just a snapshot. We actively cherry-pick security fixes and bug fixes from upstream, maintain binary releases, and keep the project production-ready for the long term.</p>
+          <p>libreFS isn't just a snapshot. We actively cherry-pick security fixes and bug fixes from upstream, maintain binary releases for all platforms, and keep the project production-ready for the long term.</p>
         </div>
-        <div class="why-box">
-          <div class="why-box-icon">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <div class="why-card">
+          <div class="why-card-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
           </div>
           <h3>Drop-in replacement</h3>
-          <p>Same S3 API. Same environment variables. Same admin API. If you were running MinIO, you can switch to libreFS with zero application changes.</p>
+          <p>Same S3 API. Same environment variables. Same admin API. If you were running MinIO, you can switch to libreFS with zero application changes — no migration, no reconfiguration.</p>
         </div>
-        <div class="why-box">
-          <div class="why-box-icon">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="why-card">
+          <div class="why-card-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <h3>No telemetry, ever</h3>
-          <p>libreFS will never phone home, collect usage data, or add any call to external endpoints without explicit user opt-in. Audited on every commit.</p>
+          <h3>Community governed, no telemetry</h3>
+          <p>libreFS will never phone home, collect usage data, or add external network calls. Every release is audited. Governance is open — no single company controls the roadmap.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Features ───────────────────────────────────────────────────────────── -->
+<!-- ── Features ──────────────────────────────────────────────────────────────── -->
 <section class="section section-alt" id="features">
   <div class="container">
     <h2 class="section-title">Everything MinIO used to offer — kept free</h2>
     <p class="section-sub">These are the features MinIO moved to AIStor. In libreFS, they are open-source and always will be.</p>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">🖥</div>
+        <div class="feature-icon">
+          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
         <h3>Full Embedded WebUI</h3>
-        <p>The complete management console on port 9001. Browse buckets, manage users, set policies — all from your browser, no external service needed.</p>
+        <p>The complete management console on port 9001. Browse buckets, manage users, configure policies — all from your browser, no external service required.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔐</div>
-        <h3>LDAP &amp; OIDC Login</h3>
-        <p>Authenticate WebUI and S3 users against any LDAP directory or OIDC-compatible identity provider (Keycloak, Dex, Okta, Google, and more).</p>
+        <div class="feature-icon">
+          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>LDAP &amp; OIDC Authentication</h3>
+        <p>Authenticate users against any LDAP directory or OIDC-compatible identity provider — Keycloak, Dex, Okta, Google, Azure AD, and more. Includes group-based access policies.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🗄</div>
+        <div class="feature-icon">
+          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        </div>
         <h3>Distributed Erasure Coding</h3>
-        <p>Multi-node deployments with erasure coding for high availability and fault tolerance. Scale from a single node up to a large cluster.</p>
+        <p>Multi-node deployments with erasure coding for high availability and fault tolerance. Survive drive and node failures without losing data or availability.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">📦</div>
+        <div class="feature-icon">
+          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
         <h3>Pre-built Binaries</h3>
-        <p>Download and run — no Go toolchain required. Binaries for Linux, macOS, and Windows on both amd64 and arm64, plus Docker images on GHCR.</p>
+        <p>Download and run — no Go toolchain required. Signed binaries for Linux, macOS, and Windows on both amd64 and arm64, plus Docker images on GHCR.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔌</div>
-        <h3>100% S3 Compatible</h3>
-        <p>Every S3 API operation works exactly as expected. All existing clients, SDKs, and tools that work with AWS S3 or MinIO work unchanged with libreFS.</p>
+        <div class="feature-icon">
+          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
+        <h3>100% S3 API Compatible</h3>
+        <p>Every S3 operation works as expected. All existing clients, SDKs, and tools built for AWS S3 or MinIO work with libreFS without any changes to your application code.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔒</div>
+        <div class="feature-icon">
+          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
         <h3>Encryption &amp; KMS</h3>
-        <p>Server-side encryption with KES/KMS integration. SSE-S3, SSE-C, and SSE-KMS. Your data at rest is always encrypted if you need it to be.</p>
+        <p>Server-side encryption with KES/KMS integration. SSE-S3, SSE-C, and SSE-KMS supported. Integrates with HashiCorp Vault, AWS KMS, Azure Key Vault, and more.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Quick Start ─────────────────────────────────────────────────────────── -->
-<section class="section" id="quickstart">
+<!-- ── Quick Start ────────────────────────────────────────────────────────────── -->
+<section class="section section-light" id="quickstart">
   <div class="container">
     <h2 class="section-title">Quick Start</h2>
-    <p class="section-sub">Running libreFS takes under a minute. Pick your preferred method below.</p>
-    <div class="qs-wrap">
+    <p class="section-sub">Up and running in under a minute. Pick your preferred method.</p>
+    <div class="qs-container">
       <div class="qs-tabs">
         <button class="qs-tab active" onclick="showTab('docker', this)">Docker</button>
         <button class="qs-tab" onclick="showTab('binary', this)">Binary</button>
@@ -206,144 +266,144 @@
       </div>
 
       <div id="tab-docker" class="qs-panel active">
-        <pre><span class="qs-comment"># Pull and run — open http://localhost:9001 when ready</span>
-<span class="qs-cmd">docker</span> run <span class="qs-flag">-p</span> <span class="qs-value">9000:9000</span> <span class="qs-flag">-p</span> <span class="qs-value">9001:9001</span> \
-  <span class="qs-flag">-e</span> <span class="qs-value">MINIO_ROOT_USER=admin</span> \
-  <span class="qs-flag">-e</span> <span class="qs-value">MINIO_ROOT_PASSWORD=password</span> \
-  <span class="qs-flag">-v</span> <span class="qs-value">/tmp/librefs-data:/data</span> \
+        <pre><span class="qs-comment"># Start libreFS with Docker — WebUI available at http://localhost:9001</span>
+<span class="qs-cmd">docker</span> run -d \
+  -p 9000:9000 -p 9001:9001 \
+  -e <span class="qs-value">MINIO_ROOT_USER</span>=admin \
+  -e <span class="qs-value">MINIO_ROOT_PASSWORD</span>=password \
+  -v /tmp/data:/data \
   <span class="qs-value">ghcr.io/librefs/librefs:latest</span> server /data \
-  <span class="qs-flag">--console-address</span> <span class="qs-value">:9001</span></pre>
-        <p class="qs-note">Opens the S3 API on <strong>:9000</strong> and the web console on <strong>:9001</strong>.<br>
-        See <a href="downloads.html">Downloads</a> for specific version tags and all available images.</p>
+  --console-address :9001</pre>
+        <p class="qs-note">
+          S3 API on <strong>:9000</strong> · Web console on <strong>:9001</strong> ·
+          <a href="downloads.html">All versions and platforms</a>
+        </p>
       </div>
 
       <div id="tab-binary" class="qs-panel">
-        <pre><span class="qs-comment"># Download the latest binary (Linux amd64 example)</span>
-<span class="qs-cmd">curl</span> <span class="qs-flag">-LO</span> https://github.com/libreFS/libreFS/releases/latest/download/librefs-linux-amd64
+        <pre><span class="qs-comment"># Linux amd64 — verify checksum before running</span>
+<span class="qs-cmd">curl</span> -LO https://github.com/libreFS/libreFS/releases/latest/download/librefs-linux-amd64
+<span class="qs-cmd">curl</span> -LO https://github.com/libreFS/libreFS/releases/latest/download/librefs-linux-amd64.sha256sum
+<span class="qs-cmd">sha256sum</span> -c librefs-linux-amd64.sha256sum
+
 <span class="qs-cmd">chmod</span> +x librefs-linux-amd64
-
-<span class="qs-comment"># Verify the checksum</span>
-<span class="qs-cmd">curl</span> <span class="qs-flag">-LO</span> https://github.com/libreFS/libreFS/releases/latest/download/librefs-linux-amd64.sha256sum
-<span class="qs-cmd">sha256sum</span> <span class="qs-flag">-c</span> librefs-linux-amd64.sha256sum
-
-<span class="qs-comment"># Start the server</span>
-<span class="qs-cmd">./librefs-linux-amd64</span> server /tmp/data <span class="qs-flag">--console-address</span> <span class="qs-value">:9001</span></pre>
-        <p class="qs-note">Binaries for <strong>linux/amd64</strong>, <strong>linux/arm64</strong>, <strong>darwin/amd64</strong>, <strong>darwin/arm64</strong>, <strong>windows/amd64</strong>.
-        See the <a href="downloads.html">Downloads page</a> for all platforms and direct links.</p>
+<span class="qs-cmd">./librefs-linux-amd64</span> server /tmp/data --console-address :9001</pre>
+        <p class="qs-note">
+          Builds for <strong>linux/amd64</strong>, <strong>linux/arm64</strong>,
+          <strong>darwin/amd64</strong>, <strong>darwin/arm64</strong>,
+          <strong>windows/amd64</strong> · <a href="downloads.html">All downloads</a>
+        </p>
       </div>
 
       <div id="tab-source" class="qs-panel">
         <pre><span class="qs-comment"># Requires Go 1.24+</span>
 <span class="qs-cmd">git</span> clone https://github.com/libreFS/libreFS.git
 <span class="qs-cmd">cd</span> libreFS
-<span class="qs-cmd">go</span> build <span class="qs-flag">-o</span> librefs .
-<span class="qs-cmd">./librefs</span> server /tmp/data <span class="qs-flag">--console-address</span> <span class="qs-value">:9001</span></pre>
-        <p class="qs-note">Default credentials: <code>MINIO_ROOT_USER=minioadmin</code> / <code>MINIO_ROOT_PASSWORD=minioadmin</code>.<br>
-        Set those env vars before starting to use your own credentials.</p>
+<span class="qs-cmd">go</span> build -o librefs .
+<span class="qs-cmd">./librefs</span> server /tmp/data --console-address :9001</pre>
+        <p class="qs-note">
+          Default credentials: <code>MINIO_ROOT_USER=minioadmin</code> / <code>MINIO_ROOT_PASSWORD=minioadmin</code>
+        </p>
       </div>
 
       <div id="tab-lc" class="qs-panel">
-        <pre><span class="qs-comment"># Download lc — the libreFS CLI client</span>
-<span class="qs-cmd">curl</span> <span class="qs-flag">-LO</span> https://github.com/libreFS/librefs-cli/releases/latest/download/lc-linux-amd64
-<span class="qs-cmd">chmod</span> +x lc-linux-amd64 &amp;&amp; <span class="qs-cmd">sudo</span> mv lc-linux-amd64 /usr/local/bin/lc
+        <pre><span class="qs-comment"># Install lc — the libreFS CLI client (drop-in replacement for mc)</span>
+<span class="qs-cmd">curl</span> -LO https://github.com/libreFS/librefs-cli/releases/latest/download/lc-linux-amd64
+<span class="qs-cmd">chmod</span> +x lc-linux-amd64&& sudo mv lc-linux-amd64 /usr/local/bin/lc
 
-<span class="qs-comment"># Connect to your libreFS instance</span>
+<span class="qs-comment"># Register your server and run basic operations</span>
 <span class="qs-cmd">lc</span> alias set local http://localhost:9000 admin password
-
-<span class="qs-comment"># Common operations</span>
-<span class="qs-cmd">lc</span> admin info local
 <span class="qs-cmd">lc</span> mb local/my-bucket
-<span class="qs-cmd">lc</span> cp ~/myfile.txt local/my-bucket/
+<span class="qs-cmd">lc</span> cp ./myfile.txt local/my-bucket/
 <span class="qs-cmd">lc</span> ls local/my-bucket</pre>
         <p class="qs-note">
-          <code>lc</code> is the libreFS CLI client, a fork of MinIO's <code>mc</code>.
-          It is fully compatible with all mc commands — any <code>mc</code> command works as <code>lc</code>.
-          See the <a href="downloads.html#lc">Downloads page</a> for all platforms.
+          <code>lc</code> is a fork of MinIO's <code>mc</code> — every <code>mc</code> command works as <code>lc</code>.
+          <a href="downloads.html#lc">Download lc for all platforms</a>
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Contribute ─────────────────────────────────────────────────────────── -->
+<!-- ── Contribute ─────────────────────────────────────────────────────────────── -->
 <section class="section section-alt" id="contribute">
   <div class="container">
     <h2 class="section-title">Get Involved</h2>
-    <p class="section-sub">libreFS is maintained by the community. Every contribution matters — from bug reports to code to spreading the word.</p>
+    <p class="section-sub">libreFS is maintained entirely by the community. Every contribution matters.</p>
     <div class="contribute-grid">
       <div class="contribute-card">
-        <div class="contribute-card-icon">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div class="contribute-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
         <h3>Report a Bug</h3>
-        <p>Found something broken? Open an issue with reproduction steps — we'll get it fixed.</p>
-        <a href="https://github.com/libreFS/libreFS/issues/new" class="btn btn-sm btn-blue" target="_blank" rel="noopener">Open an Issue</a>
+        <p>Found something broken? Open an issue with reproduction steps and we'll get it fixed.</p>
+        <a href="https://github.com/libreFS/libreFS/issues/new" class="btn btn-sm btn-dark" target="_blank" rel="noopener">Open an Issue</a>
       </div>
       <div class="contribute-card">
-        <div class="contribute-card-icon">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <div class="contribute-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
         </div>
         <h3>Submit a Pull Request</h3>
-        <p>Fork the repo, make your changes, open a PR. Check <code>CONTRIBUTING.md</code> for commit format and requirements.</p>
-        <a href="https://github.com/libreFS/libreFS/blob/master/CONTRIBUTING.md" class="btn btn-sm btn-blue" target="_blank" rel="noopener">Contributing Guide</a>
+        <p>Fork the repo, make your changes, open a PR. Check <code>CONTRIBUTING.md</code> for our process.</p>
+        <a href="https://github.com/libreFS/libreFS/blob/master/CONTRIBUTING.md" class="btn btn-sm btn-dark" target="_blank" rel="noopener">Contributing Guide</a>
       </div>
       <div class="contribute-card">
-        <div class="contribute-card-icon">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="contribute-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <h3>Report a Vulnerability</h3>
-        <p>Security issues must be reported privately — do not open public issues for security bugs.</p>
-        <a href="mailto:hello@librefs.org" class="btn btn-sm btn-blue">hello@librefs.org</a>
+        <p>Security issues must be reported privately. Do not open public issues for security bugs.</p>
+        <a href="mailto:hello@librefs.org" class="btn btn-sm btn-dark">hello@librefs.org</a>
       </div>
       <div class="contribute-card">
-        <div class="contribute-card-icon">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <div class="contribute-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <h3>Spread the Word</h3>
-        <p>Star the repo, share with your team, or write about it — help people running MinIO know there's a free alternative.</p>
-        <a href="https://github.com/libreFS/libreFS" class="btn btn-sm btn-blue" target="_blank" rel="noopener">Star on GitHub</a>
+        <p>Star the repo, share it with your team, or write about it. Help people running MinIO discover the alternative.</p>
+        <a href="https://github.com/libreFS/libreFS" class="btn btn-sm btn-dark" target="_blank" rel="noopener">Star on GitHub</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<!-- ── Footer ─────────────────────────────────────────────────────────────────── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="footer-logo">
+      <a class="footer-brand-logo" href="/">
         <svg width="22" height="25" viewBox="0 0 44 48" aria-hidden="true">
           <rect x="0" y="0"  width="44" height="12" rx="6" fill="#0ea5e9"/>
           <rect x="0" y="18" width="44" height="12" rx="6" fill="#0ea5e9" opacity=".55"/>
           <rect x="0" y="36" width="44" height="12" rx="6" fill="#0ea5e9" opacity=".22"/>
         </svg>
         libre<span>FS</span>
-      </div>
-      <p>Community-maintained S3-compatible object storage, forked from MinIO at <code>RELEASE.2025-04-22</code>. Licensed AGPL-3.0.</p>
+      </a>
+      <p>Community-maintained S3-compatible object storage, forked from MinIO at <code style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.6)">RELEASE.2025-04-22</code>.<br>Licensed under the GNU AGPL v3.0.</p>
     </div>
     <div class="footer-col">
       <h4>Project</h4>
       <ul>
-        <li><a href="https://github.com/libreFS/libreFS" target="_blank" rel="noopener">GitHub — Server</a></li>
-        <li><a href="https://github.com/libreFS/console" target="_blank" rel="noopener">GitHub — Console</a></li>
-        <li><a href="https://github.com/libreFS/librefs-cli" target="_blank" rel="noopener">GitHub — lc CLI</a></li>
-        <li><a href="https://github.com/libreFS/libreFS/releases" target="_blank" rel="noopener">Releases</a></li>
+        <li><a href="https://github.com/libreFS/libreFS" target="_blank" rel="noopener">Server</a></li>
+        <li><a href="https://github.com/libreFS/console" target="_blank" rel="noopener">Console</a></li>
+        <li><a href="https://github.com/libreFS/librefs-cli" target="_blank" rel="noopener">lc CLI</a></li>
+        <li><a href="https://github.com/libreFS/libreFS/releases" target="_blank" rel="noopener">Release Notes</a></li>
         <li><a href="downloads.html">Downloads</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Community</h4>
       <ul>
-        <li><a href="https://github.com/libreFS/libreFS/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing Guide</a></li>
         <li><a href="https://github.com/libreFS/libreFS/discussions" target="_blank" rel="noopener">Discussions</a></li>
         <li><a href="https://github.com/libreFS/libreFS/issues" target="_blank" rel="noopener">Issue Tracker</a></li>
+        <li><a href="https://github.com/libreFS/libreFS/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a></li>
         <li><a href="https://github.com/libreFS/libreFS/blob/master/LICENSE" target="_blank" rel="noopener">AGPL-3.0 License</a></li>
         <li><a href="mailto:hello@librefs.org">hello@librefs.org</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>&copy; 2026 libreFS contributors. Licensed under the <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener">GNU AGPL v3.0</a>.</span>
+    <span>&copy; 2026 libreFS contributors &nbsp;·&nbsp; <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener">GNU AGPL v3.0</a></span>
     <span>Not affiliated with MinIO, Inc.</span>
   </div>
 </footer>
@@ -355,22 +415,11 @@
     document.getElementById('tab-' + name).classList.add('active');
     btn.classList.add('active');
   }
-
-  // Mobile nav
   const toggle = document.getElementById('nav-toggle');
   const links  = document.getElementById('nav-links');
-  toggle.addEventListener('click', () => links.classList.toggle('open'));
-
-  // Copy buttons
-  document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const code = btn.previousElementSibling.textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        const orig = btn.textContent;
-        btn.textContent = 'Copied!';
-        setTimeout(() => btn.textContent = orig, 1800);
-      });
-    });
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   });
 </script>
 </body>
