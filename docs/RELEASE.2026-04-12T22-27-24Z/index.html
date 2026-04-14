@@ -12,28 +12,26 @@
         <meta name="author" content="libreFS contributors">
       
       
-        <link rel="canonical" href="https://librefs.org/docs/latest/orchestration/kubernetes/">
+        <link rel="canonical" href="https://librefs.org/docs/latest/">
       
       
-        <link rel="prev" href="../docker-compose/">
+      
+        <link rel="next" href="docker/">
       
       
-        <link rel="next" href="../../distributed/">
-      
-      
-      <link rel="icon" href="../../assets/favicon.svg">
+      <link rel="icon" href="assets/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
-        <title>Kubernetes - libreFS Documentation</title>
+        <title>libreFS Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -52,9 +50,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deploy-minio-on-kubernetes" class="md-skip">
+        <a href="#librefs-documentation" class="md-skip">
           Skip to content
         </a>
       
@@ -100,9 +98,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="libreFS Documentation" class="md-header__button md-logo" aria-label="libreFS Documentation" data-md-component="logo">
+    <a href="." title="libreFS Documentation" class="md-header__button md-logo" aria-label="libreFS Documentation" data-md-component="logo">
       
-  <img src="../../assets/logo.svg" alt="logo">
+  <img src="assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -119,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Kubernetes
+              Home
             
           </span>
         </div>
@@ -224,9 +222,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
         
   
   
@@ -243,13 +243,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../docker/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="docker/" class="md-tabs__link">
           
   
   
@@ -267,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../config/" class="md-tabs__link">
+      <a href="config/" class="md-tabs__link">
         
   
   
@@ -288,7 +286,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../sts/" class="md-tabs__link">
+        <a href="sts/" class="md-tabs__link">
           
   
   
@@ -308,7 +306,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../erasure/" class="md-tabs__link">
+        <a href="erasure/" class="md-tabs__link">
           
   
   
@@ -328,7 +326,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../security/" class="md-tabs__link">
+        <a href="security/" class="md-tabs__link">
           
   
   
@@ -348,7 +346,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../metrics/" class="md-tabs__link">
+        <a href="metrics/" class="md-tabs__link">
           
   
   
@@ -368,7 +366,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../select/" class="md-tabs__link">
+        <a href="select/" class="md-tabs__link">
           
   
   
@@ -388,7 +386,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../tuning/" class="md-tabs__link">
+        <a href="tuning/" class="md-tabs__link">
           
   
   
@@ -408,7 +406,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../minio-limits/" class="md-tabs__link">
+        <a href="minio-limits/" class="md-tabs__link">
           
   
   
@@ -448,9 +446,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="libreFS Documentation" class="md-nav__button md-logo" aria-label="libreFS Documentation" data-md-component="logo">
+    <a href="." title="libreFS Documentation" class="md-nav__button md-logo" aria-label="libreFS Documentation" data-md-component="logo">
       
-  <img src="../../assets/logo.svg" alt="logo">
+  <img src="assets/logo.svg" alt="logo">
 
     </a>
     libreFS Documentation
@@ -474,10 +472,19 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="." class="md-nav__link md-nav__link--active">
         
   
   
@@ -488,6 +495,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -496,31 +504,28 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -533,7 +538,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -547,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docker/" class="md-nav__link">
+      <a href="docker/" class="md-nav__link">
         
   
   
@@ -570,7 +575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../docker-compose/" class="md-nav__link">
+      <a href="orchestration/docker-compose/" class="md-nav__link">
         
   
   
@@ -590,32 +595,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Kubernetes
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="orchestration/kubernetes/" class="md-nav__link">
         
   
   
@@ -626,53 +609,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#minio-deployment-on-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      MinIO Deployment on Kubernetes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-minio-in-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Monitoring MinIO in Kubernetes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#explore-further" class="md-nav__link">
-    <span class="md-ellipsis">
-      Explore Further
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -691,13 +627,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
@@ -706,7 +639,7 @@
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
         
           
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
             
   
   
@@ -733,7 +666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../distributed/" class="md-nav__link">
+      <a href="distributed/" class="md-nav__link">
         
   
   
@@ -756,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../distributed/CONFIG/" class="md-nav__link">
+      <a href="distributed/CONFIG/" class="md-nav__link">
         
   
   
@@ -779,7 +712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../distributed/SIZING/" class="md-nav__link">
+      <a href="distributed/SIZING/" class="md-nav__link">
         
   
   
@@ -802,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../distributed/DESIGN/" class="md-nav__link">
+      <a href="distributed/DESIGN/" class="md-nav__link">
         
   
   
@@ -825,7 +758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../distributed/DECOMMISSION/" class="md-nav__link">
+      <a href="distributed/DECOMMISSION/" class="md-nav__link">
         
   
   
@@ -863,7 +796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../config/" class="md-nav__link">
+      <a href="config/" class="md-nav__link">
         
   
   
@@ -930,7 +863,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/" class="md-nav__link">
+      <a href="sts/" class="md-nav__link">
         
   
   
@@ -953,7 +886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multi-user/" class="md-nav__link">
+      <a href="multi-user/" class="md-nav__link">
         
   
   
@@ -976,7 +909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multi-user/admin/" class="md-nav__link">
+      <a href="multi-user/admin/" class="md-nav__link">
         
   
   
@@ -999,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/ldap/" class="md-nav__link">
+      <a href="sts/ldap/" class="md-nav__link">
         
   
   
@@ -1022,7 +955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/keycloak/" class="md-nav__link">
+      <a href="sts/keycloak/" class="md-nav__link">
         
   
   
@@ -1045,7 +978,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/dex/" class="md-nav__link">
+      <a href="sts/dex/" class="md-nav__link">
         
   
   
@@ -1068,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/casdoor/" class="md-nav__link">
+      <a href="sts/casdoor/" class="md-nav__link">
         
   
   
@@ -1091,7 +1024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/wso2/" class="md-nav__link">
+      <a href="sts/wso2/" class="md-nav__link">
         
   
   
@@ -1114,7 +1047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/web-identity/" class="md-nav__link">
+      <a href="sts/web-identity/" class="md-nav__link">
         
   
   
@@ -1137,7 +1070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/assume-role/" class="md-nav__link">
+      <a href="sts/assume-role/" class="md-nav__link">
         
   
   
@@ -1160,7 +1093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/client-grants/" class="md-nav__link">
+      <a href="sts/client-grants/" class="md-nav__link">
         
   
   
@@ -1183,7 +1116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/custom-token-identity/" class="md-nav__link">
+      <a href="sts/custom-token-identity/" class="md-nav__link">
         
   
   
@@ -1206,7 +1139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/etcd/" class="md-nav__link">
+      <a href="sts/etcd/" class="md-nav__link">
         
   
   
@@ -1229,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sts/tls/" class="md-nav__link">
+      <a href="sts/tls/" class="md-nav__link">
         
   
   
@@ -1252,7 +1185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../iam/access-management-plugin/" class="md-nav__link">
+      <a href="iam/access-management-plugin/" class="md-nav__link">
         
   
   
@@ -1275,7 +1208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../iam/identity-management-plugin/" class="md-nav__link">
+      <a href="iam/identity-management-plugin/" class="md-nav__link">
         
   
   
@@ -1298,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../iam/opa/" class="md-nav__link">
+      <a href="iam/opa/" class="md-nav__link">
         
   
   
@@ -1373,7 +1306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../erasure/" class="md-nav__link">
+      <a href="erasure/" class="md-nav__link">
         
   
   
@@ -1396,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../erasure/storage-class/" class="md-nav__link">
+      <a href="erasure/storage-class/" class="md-nav__link">
         
   
   
@@ -1419,7 +1352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bucket/lifecycle/" class="md-nav__link">
+      <a href="bucket/lifecycle/" class="md-nav__link">
         
   
   
@@ -1442,7 +1375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bucket/versioning/" class="md-nav__link">
+      <a href="bucket/versioning/" class="md-nav__link">
         
   
   
@@ -1465,7 +1398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bucket/retention/" class="md-nav__link">
+      <a href="bucket/retention/" class="md-nav__link">
         
   
   
@@ -1488,7 +1421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bucket/replication/" class="md-nav__link">
+      <a href="bucket/replication/" class="md-nav__link">
         
   
   
@@ -1511,7 +1444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../site-replication/" class="md-nav__link">
+      <a href="site-replication/" class="md-nav__link">
         
   
   
@@ -1534,7 +1467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bucket/quota/" class="md-nav__link">
+      <a href="bucket/quota/" class="md-nav__link">
         
   
   
@@ -1557,7 +1490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bucket/notifications/" class="md-nav__link">
+      <a href="bucket/notifications/" class="md-nav__link">
         
   
   
@@ -1580,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../compression/" class="md-nav__link">
+      <a href="compression/" class="md-nav__link">
         
   
   
@@ -1655,7 +1588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/" class="md-nav__link">
+      <a href="security/" class="md-nav__link">
         
   
   
@@ -1678,7 +1611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../kms/" class="md-nav__link">
+      <a href="kms/" class="md-nav__link">
         
   
   
@@ -1701,7 +1634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../kms/IAM/" class="md-nav__link">
+      <a href="kms/IAM/" class="md-nav__link">
         
   
   
@@ -1724,7 +1657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tls/" class="md-nav__link">
+      <a href="tls/" class="md-nav__link">
         
   
   
@@ -1747,7 +1680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tls/kubernetes/" class="md-nav__link">
+      <a href="tls/kubernetes/" class="md-nav__link">
         
   
   
@@ -1822,7 +1755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../metrics/" class="md-nav__link">
+      <a href="metrics/" class="md-nav__link">
         
   
   
@@ -1845,7 +1778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../metrics/healthcheck/" class="md-nav__link">
+      <a href="metrics/healthcheck/" class="md-nav__link">
         
   
   
@@ -1868,7 +1801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../metrics/prometheus/" class="md-nav__link">
+      <a href="metrics/prometheus/" class="md-nav__link">
         
   
   
@@ -1891,7 +1824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../metrics/prometheus/alerts/" class="md-nav__link">
+      <a href="metrics/prometheus/alerts/" class="md-nav__link">
         
   
   
@@ -1914,7 +1847,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../metrics/prometheus/list/" class="md-nav__link">
+      <a href="metrics/prometheus/list/" class="md-nav__link">
         
   
   
@@ -1937,7 +1870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../metrics/prometheus/grafana/" class="md-nav__link">
+      <a href="metrics/prometheus/grafana/" class="md-nav__link">
         
   
   
@@ -1960,7 +1893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../metrics/v3/" class="md-nav__link">
+      <a href="metrics/v3/" class="md-nav__link">
         
   
   
@@ -1983,7 +1916,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../logging/" class="md-nav__link">
+      <a href="logging/" class="md-nav__link">
         
   
   
@@ -2006,7 +1939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../auditlog/auditlog-echo/" class="md-nav__link">
+      <a href="auditlog/auditlog-echo/" class="md-nav__link">
         
   
   
@@ -2081,7 +2014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../select/" class="md-nav__link">
+      <a href="select/" class="md-nav__link">
         
   
   
@@ -2104,7 +2037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../batch-jobs/" class="md-nav__link">
+      <a href="batch-jobs/" class="md-nav__link">
         
   
   
@@ -2127,7 +2060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lambda/" class="md-nav__link">
+      <a href="lambda/" class="md-nav__link">
         
   
   
@@ -2150,7 +2083,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ftp/" class="md-nav__link">
+      <a href="ftp/" class="md-nav__link">
         
   
   
@@ -2173,7 +2106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../extensions/s3zip/" class="md-nav__link">
+      <a href="extensions/s3zip/" class="md-nav__link">
         
   
   
@@ -2196,7 +2129,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../extensions/fan-out/" class="md-nav__link">
+      <a href="extensions/fan-out/" class="md-nav__link">
         
   
   
@@ -2219,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../federation/lookup/" class="md-nav__link">
+      <a href="federation/lookup/" class="md-nav__link">
         
   
   
@@ -2242,7 +2175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multi-tenancy/" class="md-nav__link">
+      <a href="multi-tenancy/" class="md-nav__link">
         
   
   
@@ -2265,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../chroot/" class="md-nav__link">
+      <a href="chroot/" class="md-nav__link">
         
   
   
@@ -2288,7 +2221,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../bigdata/" class="md-nav__link">
+      <a href="bigdata/" class="md-nav__link">
         
   
   
@@ -2311,7 +2244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/veeam/" class="md-nav__link">
+      <a href="integrations/veeam/" class="md-nav__link">
         
   
   
@@ -2386,7 +2319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tuning/" class="md-nav__link">
+      <a href="tuning/" class="md-nav__link">
         
   
   
@@ -2409,7 +2342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../throttle/" class="md-nav__link">
+      <a href="throttle/" class="md-nav__link">
         
   
   
@@ -2432,7 +2365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../debugging/" class="md-nav__link">
+      <a href="debugging/" class="md-nav__link">
         
   
   
@@ -2507,7 +2440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../minio-limits/" class="md-nav__link">
+      <a href="minio-limits/" class="md-nav__link">
         
   
   
@@ -2530,7 +2463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../roadmap.md" class="md-nav__link">
+      <a href="roadmap.md" class="md-nav__link">
         
   
   
@@ -2573,41 +2506,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#minio-deployment-on-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      MinIO Deployment on Kubernetes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-minio-in-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Monitoring MinIO in Kubernetes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#explore-further" class="md-nav__link">
-    <span class="md-ellipsis">
-      Explore Further
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -2622,7 +2520,7 @@
 
 
   
-    <a href="https://github.com/libreFS/libreFS/edit/master/docs/orchestration/kubernetes/README.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/libreFS/libreFS/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2630,25 +2528,17 @@
   
 
 
-<h1 id="deploy-minio-on-kubernetes">Deploy MinIO on Kubernetes <a href="https://slack.min.io"><img alt="Slack" src="https://slack.min.io/slack?type=svg" /></a>  <a href="https://hub.docker.com/r/minio/minio/"><img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/minio/minio.svg?maxAge=604800" /></a><a class="headerlink" href="#deploy-minio-on-kubernetes" title="Permanent link">&para;</a></h1>
-<p>MinIO is a high performance distributed object storage server, designed for large-scale private cloud infrastructure. MinIO is designed in a cloud-native manner to scale sustainably in multi-tenant environments. Orchestration platforms like Kubernetes provide perfect cloud-native environment to deploy and scale MinIO.</p>
-<h2 id="minio-deployment-on-kubernetes">MinIO Deployment on Kubernetes<a class="headerlink" href="#minio-deployment-on-kubernetes" title="Permanent link">&para;</a></h2>
-<p>There are multiple options to deploy MinIO on Kubernetes:</p>
+<h1 id="librefs-documentation">libreFS Documentation<a class="headerlink" href="#librefs-documentation" title="Permanent link">&para;</a></h1>
+<p>Welcome to the libreFS documentation.</p>
+<p>libreFS is a community-maintained, fully open-source S3-compatible object storage server —
+a fork of MinIO preserving LDAP/OIDC, distributed mode, and a full WebUI under AGPL-3.0.</p>
+<p>Use the navigation above to browse topics, or jump straight to:</p>
 <ul>
-<li>
-<p>MinIO-Operator: Operator offers seamless way to create and update highly available distributed MinIO clusters. Refer <a href="https://github.com/minio/minio-operator/blob/master/README.md">MinIO Operator documentation</a> for more details.</p>
-</li>
-<li>
-<p>Helm Chart: MinIO Helm Chart offers customizable and easy MinIO deployment with a single command. Refer <a href="https://github.com/minio/minio/tree/master/helm/minio">MinIO Helm Chart documentation</a> for more details.</p>
-</li>
-</ul>
-<h2 id="monitoring-minio-in-kubernetes">Monitoring MinIO in Kubernetes<a class="headerlink" href="#monitoring-minio-in-kubernetes" title="Permanent link">&para;</a></h2>
-<p>MinIO server exposes un-authenticated liveness endpoints so Kubernetes can natively identify unhealthy MinIO containers. MinIO also exposes Prometheus compatible data on a different endpoint to enable Prometheus users to natively monitor their MinIO deployments.</p>
-<h2 id="explore-further">Explore Further<a class="headerlink" href="#explore-further" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://docs.min.io/community/minio-object-store/operations/concepts/erasure-coding.html">MinIO Erasure Code QuickStart Guide</a></li>
-<li><a href="https://kubernetes.io/docs/home/">Kubernetes Documentation</a></li>
-<li><a href="https://helm.sh/">Helm package manager for kubernetes</a></li>
+<li><a href="docker/">Getting Started with Docker</a></li>
+<li><a href="distributed/">Distributed Mode</a></li>
+<li><a href="sts/">Authentication / LDAP / OIDC</a></li>
+<li><a href="kms/">Encryption &amp; KMS</a></li>
+<li><a href="metrics/">Metrics &amp; Observability</a></li>
 </ul>
 
 
@@ -2684,31 +2574,15 @@
       
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
-          
-          <a href="../docker-compose/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Docker Compose">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                Docker Compose
-              </div>
-            </div>
-          </a>
-        
         
           
-          <a href="../../distributed/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+          <a href="docker/" class="md-footer__link md-footer__link--next" aria-label="Next: Docker">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Overview
+                Docker
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2760,10 +2634,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "toc.follow"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "toc.follow"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
       
     
   </body>
