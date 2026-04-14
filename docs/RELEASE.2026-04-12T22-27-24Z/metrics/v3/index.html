@@ -1,0 +1,4810 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="libreFS is a community-maintained, fully open-source S3-compatible object storage server. Comprehensive documentation for installation, configuration, LDAP/OIDC, distributed mode, encryption, and more.">
+      
+      
+        <meta name="author" content="libreFS contributors">
+      
+      
+        <link rel="canonical" href="https://librefs.org/docs/latest/metrics/v3/">
+      
+      
+        <link rel="prev" href="../prometheus/grafana/">
+      
+      
+        <link rel="next" href="../../logging/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Metrics API v3 - libreFS Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#metrics-version-3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="libreFS Documentation" class="md-header__button md-logo" aria-label="libreFS Documentation" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            libreFS Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Metrics API v3
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/libreFS/libreFS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    libreFS/libreFS
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../docker/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../config/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sts/" class="md-tabs__link">
+          
+  
+  
+  Authentication
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../erasure/" class="md-tabs__link">
+          
+  
+  
+  Storage
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../security/" class="md-tabs__link">
+          
+  
+  
+  Security
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Observability
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../select/" class="md-tabs__link">
+          
+  
+  
+  Advanced
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tuning/" class="md-tabs__link">
+          
+  
+  
+  Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../minio-limits/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="libreFS Documentation" class="md-nav__button md-logo" aria-label="libreFS Documentation" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    libreFS Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/libreFS/libreFS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    libreFS/libreFS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../orchestration/docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../orchestration/kubernetes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Distributed Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Distributed Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed/CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed/SIZING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sizing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed/DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed/DECOMMISSION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Decommissioning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Authentication
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Authentication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../multi-user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-user Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../multi-user/admin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Admin Users
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/ldap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LDAP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/keycloak/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keycloak (OIDC)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/dex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dex (OIDC)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/casdoor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Casdoor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/wso2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WSO2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/web-identity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Identity (OIDC)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/assume-role/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AssumeRole
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/client-grants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Client Grants
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/custom-token-identity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Token
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/etcd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    etcd
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sts/tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TLS for STS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../iam/access-management-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Access Management Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../iam/identity-management-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identity Management Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../iam/opa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Open Policy Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Storage
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Storage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../erasure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Erasure Coding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../erasure/storage-class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storage Classes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bucket/lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bucket Lifecycle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bucket/versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bucket Versioning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bucket/retention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Object Retention
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bucket/replication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bucket Replication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site-replication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Replication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bucket/quota/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bucket Quota
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bucket/notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Event Notifications
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    KMS & Encryption
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kms/IAM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    KMS IAM Encryption
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TLS Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tls/kubernetes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TLS on Kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Observability
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Observability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../healthcheck/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Health Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prometheus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prometheus/alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prometheus Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prometheus/list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prometheus/grafana/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grafana Dashboards
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Metrics API v3
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics API v3
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-request-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metrics Request Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics Request Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-bucket-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-bucket Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-available-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Available Metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metric Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metric Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apirequests" class="md-nav__link">
+    <span class="md-ellipsis">
+      /api/requests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bucketapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      /bucket/api
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audit metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      /audit
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cluster metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clusterconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/config
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clustererasure-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/erasure-set
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusterhealth" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/health
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusteriam" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/iam
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusterusagebuckets" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/usage/buckets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusterusageobjects" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/usage/objects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ilm-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      ILM metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ILM metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ilm" class="md-nav__link">
+    <span class="md-ellipsis">
+      /ilm
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logger-webhook-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logger webhook metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logger webhook metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loggerwebhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      /logger/webhook
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notification metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      /notification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replication-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Replication metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Replication metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      /replication
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scanner-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scanner metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scanner metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      /scanner
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      System metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#systemdrive" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/drive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemmemory" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemcpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/cpu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemnetworkinternode" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/network/internode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../auditlog/auditlog-echo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Audit Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../select/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    S3 Select
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../batch-jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Batch Jobs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lambda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lambda/Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ftp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FTP/SFTP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/s3zip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    S3 ZIP Extension
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/fan-out/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fan-out Extension
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../federation/lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bucket Federation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../multi-tenancy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-tenancy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chroot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chroot Isolation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bigdata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Big Data Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integrations/veeam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Veeam Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Operations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Performance Tuning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../throttle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Throttling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../minio-limits/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Server Limits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Roadmap
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-request-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metrics Request Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics Request Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-bucket-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-bucket Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-available-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Available Metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metric Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metric Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apirequests" class="md-nav__link">
+    <span class="md-ellipsis">
+      /api/requests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bucketapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      /bucket/api
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audit metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      /audit
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cluster metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clusterconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/config
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clustererasure-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/erasure-set
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusterhealth" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/health
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusteriam" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/iam
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusterusagebuckets" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/usage/buckets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusterusageobjects" class="md-nav__link">
+    <span class="md-ellipsis">
+      /cluster/usage/objects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ilm-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      ILM metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ILM metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ilm" class="md-nav__link">
+    <span class="md-ellipsis">
+      /ilm
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logger-webhook-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logger webhook metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logger webhook metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loggerwebhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      /logger/webhook
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notification metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      /notification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replication-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Replication metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Replication metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      /replication
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scanner-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scanner metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scanner metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      /scanner
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      System metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#systemdrive" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/drive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemmemory" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemcpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/cpu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemnetworkinternode" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/network/internode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      /system/process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/libreFS/libreFS/edit/master/docs/metrics/v3.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="metrics-version-3">Metrics Version 3<a class="headerlink" href="#metrics-version-3" title="Permanent link">&para;</a></h1>
+<p>In metrics version 3, all metrics are available under the following base endpoint:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/minio/metrics/v3
+</span></code></pre></div>
+<p>To query metrics of a specific type, append the appropriate path to the base endpoint.
+Querying the base endpoint returns "404 Not Found."</p>
+<p>Metrics are organized into groups at paths <strong>relative</strong> to the top-level endpoint above.</p>
+<p>Metrics are also available using the <a href="https://docs.min.io/community/minio-object-store/reference/minio-mc-admin.html">MinIO Admin Client</a> and the <code>mc admin prometheus metrics</code> command. For more information, see <a href="https://docs.min.io/community/minio-object-store/operations/monitoring/metrics-and-alerts.html">Metrics and Alerts</a> in the MinIO Documentation.</p>
+<h2 id="metrics-request-handling">Metrics Request Handling<a class="headerlink" href="#metrics-request-handling" title="Permanent link">&para;</a></h2>
+<p>Each endpoint can be queried as needed via a scrape configuration in Prometheus or a compatible metrics collection tool. You should schedule scrape operations so a prior scrape completes before the next one begins.</p>
+<p>For ease of configuration, each (non-empty) parent of the path serves all the metric endpoints at its child paths. For example, to query all system metrics scrape <code>/minio/metrics/v3/system/</code>.</p>
+<p>Each metric endpoint may support multiple child endpoints. For example, the <code>/v3/system/</code> metric has multiple child groups as <code>/v3/system/&lt;child&gt;</code>. Querying the parent endpoint returns metrics for all child groups. Querying a child group returns only metrics for that child.</p>
+<h3 id="per-bucket-metrics">Per-bucket Metrics<a class="headerlink" href="#per-bucket-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics with a <code>/bucket</code> component in the path return results for each specified bucket in the deployment. These endpoints <strong>require</strong> providing a list of buckets as a <code>bucket</code> query parameter.  The endpoint then returns only metrics for the given buckets, with the bucket name in a <code>bucket</code> label.</p>
+<p>For example, to query API metrics for buckets <code>test1</code> and <code>test2</code>, make a scrape request to <code>/minio/metrics/v3/api/bucket?buckets=test1,test2</code>. </p>
+<h3 id="list-available-metrics">List Available Metrics<a class="headerlink" href="#list-available-metrics" title="Permanent link">&para;</a></h3>
+<p>Instead of a metrics scrape, you can list the metrics that would be returned by a path by adding a <code>list</code> query parameter. The MinIO server then lists all available metrics that could be returned. Note that during an actual metrics scrape only metrics with available <em>values</em> are returned. Metrics with null values are omitted from the scrape results.</p>
+<p>To set the output format, set the request <code>Content-Type</code> to the desired format. Accepted values are <code>application/json</code> for JSON output or <code>text/plain</code> for a Markdown-formatted table. The default is Markdown.</p>
+<p>For example, the following returns a list of all available bucket metrics:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/minio/metrics/v3/api/bucket?list
+</span></code></pre></div></p>
+<h2 id="metric-categories">Metric Categories<a class="headerlink" href="#metric-categories" title="Permanent link">&para;</a></h2>
+<p>At a high level, metrics are grouped into categories as described in the following sections. The path in each of the tables is relative to the top-level endpoint. Note that the standard GoCollector metrics are not shown.</p>
+<h3 id="request-metrics">Request metrics<a class="headerlink" href="#request-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about requests served by the current node.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/api/requests</code></td>
+<td>Metrics over all requests.</td>
+</tr>
+<tr>
+<td><code>/bucket/api</code></td>
+<td>Metrics over all requests for a given bucket.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="apirequests"><code>/api/requests</code><a class="headerlink" href="#apirequests" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_api_requests_rejected_auth_total</code></td>
+<td>Total number of requests rejected for auth failure. <br><br>Type: counter</td>
+<td><code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_rejected_header_total</code></td>
+<td>Total number of requests rejected for invalid header. <br><br>Type: counter</td>
+<td><code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_rejected_timestamp_total</code></td>
+<td>Total number of requests rejected for invalid timestamp. <br><br>Type: counter</td>
+<td><code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_rejected_invalid_total</code></td>
+<td>Total number of invalid requests. <br><br>Type: counter</td>
+<td><code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_waiting_total</code></td>
+<td>Total number of requests in the waiting queue. <br><br>Type: gauge</td>
+<td><code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_incoming_total</code></td>
+<td>Total number of incoming requests. <br><br>Type: gauge</td>
+<td><code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_inflight_total</code></td>
+<td>Total number of requests currently in flight. <br><br>Type: gauge</td>
+<td><code>name</code>, <code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_total</code></td>
+<td>Total number of requests. <br><br>Type: counter</td>
+<td><code>name</code>, <code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_errors_total</code></td>
+<td>Total number of requests with 4xx or 5xx errors. <br><br>Type: counter</td>
+<td><code>name</code>, <code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_5xx_errors_total</code></td>
+<td>Total number of requests with 5xx errors. <br><br>Type: counter</td>
+<td><code>name</code>, <code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_4xx_errors_total</code></td>
+<td>Total number of requests with 4xx errors. <br><br>Type: counter</td>
+<td><code>name</code>, <code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_canceled_total</code></td>
+<td>Total number of requests canceled by the client. <br><br>Type: counter</td>
+<td><code>name</code>, <code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_ttfb_seconds_distribution</code></td>
+<td>Distribution of time to first byte across API calls. <br><br>Type: counter</td>
+<td><code>name</code>, <code>type</code>, <code>le</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_traffic_sent_bytes</code></td>
+<td>Total number of bytes sent. <br><br>Type: counter</td>
+<td><code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_api_requests_traffic_received_bytes</code></td>
+<td>Total number of bytes received. <br><br>Type: counter</td>
+<td><code>type</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="bucketapi"><code>/bucket/api</code><a class="headerlink" href="#bucketapi" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_bucket_api_traffic_received_bytes</code></td>
+<td>Total number of bytes sent for a bucket. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>type</code>, <code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_api_traffic_sent_bytes</code></td>
+<td>Total number of bytes received for a bucket. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>type</code>, <code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_api_inflight_total</code></td>
+<td>Total number of requests currently in flight for a bucket. <br><br>Type: gauge</td>
+<td><code>bucket</code>, <code>name</code>, <code>type</code>, <code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_api_total</code></td>
+<td>Total number of requests for a bucket. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>name</code>, <code>type</code>, <code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_api_canceled_total</code></td>
+<td>Total number of requests canceled by the client for a bucket. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>name</code>, <code>type</code>, <code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_api_4xx_errors_total</code></td>
+<td>Total number of requests with 4xx errors for a bucket. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>name</code>, <code>type</code>, <code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_api_5xx_errors_total</code></td>
+<td>Total number of requests with 5xx errors for a bucket. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>name</code>, <code>type</code>, <code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_api_ttfb_seconds_distribution</code></td>
+<td>Distribution of time to first byte across API calls for a bucket. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>name</code>, <code>le</code>, <code>type</code>, <code>server</code>, <code>pool_index</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="audit-metrics">Audit metrics<a class="headerlink" href="#audit-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about the MinIO audit functionality.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/audit</code></td>
+<td>Metrics related to audit functionality.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="audit"><code>/audit</code><a class="headerlink" href="#audit" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_audit_failed_messages</code></td>
+<td>Total number of messages that failed to send since start. <br><br>Type: counter</td>
+<td><code>target_id</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_audit_target_queue_length</code></td>
+<td>Number of unsent messages in queue for target. <br><br>Type: gauge</td>
+<td><code>target_id</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_audit_total_messages</code></td>
+<td>Total number of messages sent since start. <br><br>Type: counter</td>
+<td><code>target_id</code>, <code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cluster-metrics">Cluster metrics<a class="headerlink" href="#cluster-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about an entire MinIO cluster.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/cluster/config</code></td>
+<td>Cluster configuration metrics.</td>
+</tr>
+<tr>
+<td><code>/cluster/erasure-set</code></td>
+<td>Erasure set metrics.</td>
+</tr>
+<tr>
+<td><code>/cluster/health</code></td>
+<td>Cluster health metrics.</td>
+</tr>
+<tr>
+<td><code>/cluster/iam</code></td>
+<td>Cluster iam metrics.</td>
+</tr>
+<tr>
+<td><code>/cluster/usage/buckets</code></td>
+<td>Object statistics by bucket.</td>
+</tr>
+<tr>
+<td><code>/cluster/usage/objects</code></td>
+<td>Object statistics.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="clusterconfig"><code>/cluster/config</code><a class="headerlink" href="#clusterconfig" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_cluster_config_rrs_parity</code></td>
+<td>Reduced redundancy storage class parity. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_config_standard_parity</code></td>
+<td>Standard storage class parity. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="clustererasure-set"><code>/cluster/erasure-set</code><a class="headerlink" href="#clustererasure-set" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_cluster_erasure_set_overall_write_quorum</code></td>
+<td>Overall write quorum across pools and sets. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_overall_health</code></td>
+<td>Overall health across pools and sets (1=healthy, 0=unhealthy). <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_read_quorum</code></td>
+<td>Read quorum for the erasure set in a pool. <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_write_quorum</code></td>
+<td>Write quorum for the erasure set in a pool. <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_online_drives_count</code></td>
+<td>Count of online drives in the erasure set in a pool. <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_healing_drives_count</code></td>
+<td>Count of healing drives in the erasure set in a pool. <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_health</code></td>
+<td>Health of the erasure set in a pool (1=healthy, 0=unhealthy). <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_read_tolerance</code></td>
+<td>Number of drive failures that can be tolerated without disrupting read operations. <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_write_tolerance</code></td>
+<td>Number of drive failures that can be tolerated without disrupting write operations. <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_read_health</code></td>
+<td>Health of the erasure set in a pool for read operations (1=healthy, 0=unhealthy). <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_erasure_set_write_health</code></td>
+<td>Health of the erasure set in a pool for write operations (1=healthy, 0=unhealthy). <br><br>Type: gauge</td>
+<td><code>pool_id</code>, <code>set_id</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="clusterhealth"><code>/cluster/health</code><a class="headerlink" href="#clusterhealth" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_cluster_health_drives_offline_count</code></td>
+<td>Count of offline drives in the cluster. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_health_drives_online_count</code></td>
+<td>Count of online drives in the cluster. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_health_drives_count</code></td>
+<td>Count of all drives in the cluster. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_health_nodes_offline_count</code></td>
+<td>Count of offline nodes in the cluster. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_health_nodes_online_count</code></td>
+<td>Count of online nodes in the cluster. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_health_capacity_raw_total_bytes</code></td>
+<td>Total cluster raw storage capacity in bytes. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_health_capacity_raw_free_bytes</code></td>
+<td>Total cluster raw storage free in bytes. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_health_capacity_usable_total_bytes</code></td>
+<td>Total cluster usable storage capacity in bytes. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_health_capacity_usable_free_bytes</code></td>
+<td>Total cluster usable storage free in bytes. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="clusteriam"><code>/cluster/iam</code><a class="headerlink" href="#clusteriam" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_cluster_iam_last_sync_duration_millis</code></td>
+<td>Last successful IAM data sync duration in milliseconds. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_plugin_authn_service_failed_requests_minute</code></td>
+<td>When plugin authentication is configured, returns failed requests count in the last full minute. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_plugin_authn_service_last_fail_seconds</code></td>
+<td>When plugin authentication is configured, returns time (in seconds) since the last failed request to the service. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_plugin_authn_service_last_succ_seconds</code></td>
+<td>When plugin authentication is configured, returns time (in seconds) since the last successful request to the service. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_plugin_authn_service_succ_avg_rtt_ms_minute</code></td>
+<td>When plugin authentication is configured, returns average round-trip time of successful requests in the last full minute. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_plugin_authn_service_succ_max_rtt_ms_minute</code></td>
+<td>When plugin authentication is configured, returns maximum round-trip time of successful requests in the last full minute. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_plugin_authn_service_total_requests_minute</code></td>
+<td>When plugin authentication is configured, returns total requests count in the last full minute. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_since_last_sync_millis</code></td>
+<td>Time (in milliseconds) since last successful IAM data sync. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_sync_failures</code></td>
+<td>Number of failed IAM data syncs since server start. <br><br>Type: counter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_iam_sync_successes</code></td>
+<td>Number of successful IAM data syncs since server start. <br><br>Type: counter</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="clusterusagebuckets"><code>/cluster/usage/buckets</code><a class="headerlink" href="#clusterusagebuckets" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_cluster_usage_buckets_since_last_update_seconds</code></td>
+<td>Time since last update of usage metrics in seconds. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_buckets_total_bytes</code></td>
+<td>Total bucket size in bytes. <br><br>Type: gauge</td>
+<td><code>bucket</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_buckets_objects_count</code></td>
+<td>Total object count in bucket. <br><br>Type: gauge</td>
+<td><code>bucket</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_buckets_versions_count</code></td>
+<td>Total object versions count in bucket, including delete markers. <br><br>Type: gauge</td>
+<td><code>bucket</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_buckets_delete_markers_count</code></td>
+<td>Total delete markers count in bucket. <br><br>Type: gauge</td>
+<td><code>bucket</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_buckets_quota_total_bytes</code></td>
+<td>Total bucket quota in bytes. <br><br>Type: gauge</td>
+<td><code>bucket</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_buckets_object_size_distribution</code></td>
+<td>Bucket object size distribution. <br><br>Type: gauge</td>
+<td><code>range</code>, <code>bucket</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_buckets_object_version_count_distribution</code></td>
+<td>Bucket object version count distribution. <br><br>Type: gauge</td>
+<td><code>range</code>, <code>bucket</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="clusterusageobjects"><code>/cluster/usage/objects</code><a class="headerlink" href="#clusterusageobjects" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_cluster_usage_objects_since_last_update_seconds</code></td>
+<td>Time since last update of usage metrics in seconds. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_objects_total_bytes</code></td>
+<td>Total cluster usage in bytes. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_objects_count</code></td>
+<td>Total cluster objects count. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_objects_versions_count</code></td>
+<td>Total cluster object versions count, including delete markers. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_objects_delete_markers_count</code></td>
+<td>Total cluster delete markers count. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_objects_buckets_count</code></td>
+<td>Total cluster buckets count. <br><br>Type: gauge</td>
+<td></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_objects_size_distribution</code></td>
+<td>Cluster object size distribution. <br><br>Type: gauge</td>
+<td><code>range</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_usage_objects_version_count_distribution</code></td>
+<td>Cluster object version count distribution. <br><br>Type: gauge</td>
+<td><code>range</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="debug-metrics">Debug metrics<a class="headerlink" href="#debug-metrics" title="Permanent link">&para;</a></h3>
+<p>Standard Go runtime metrics from the <a href="https://github.com/prometheus/client_golang">Prometheus Go Client base collector</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/debug/go</code></td>
+<td>Go runtime metrics.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ilm-metrics">ILM metrics<a class="headerlink" href="#ilm-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about the MinIO ILM functionality.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/ilm</code></td>
+<td>Metrics related to ILM functionality.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ilm"><code>/ilm</code><a class="headerlink" href="#ilm" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_cluster_ilm_expiry_pending_tasks</code></td>
+<td>Number of pending ILM expiry tasks in the queue. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_ilm_transition_active_tasks</code></td>
+<td>Number of active ILM transition tasks. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_ilm_transition_pending_tasks</code></td>
+<td>Number of pending ILM transition tasks in the queue. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_ilm_transition_missed_immediate_tasks</code></td>
+<td>Number of missed immediate ILM transition tasks. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_cluster_ilm_versions_scanned</code></td>
+<td>Total number of object versions checked for ILM actions since server start. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="logger-webhook-metrics">Logger webhook metrics<a class="headerlink" href="#logger-webhook-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about MinIO logger webhooks.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/logger/webhook</code></td>
+<td>Metrics related to logger webhooks.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="loggerwebhook"><code>/logger/webhook</code><a class="headerlink" href="#loggerwebhook" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_logger_webhook_failed_messages</code></td>
+<td>Number of messages that failed to send. <br><br>Type: counter</td>
+<td><code>server</code>, <code>name</code>, <code>endpoint</code></td>
+</tr>
+<tr>
+<td><code>minio_logger_webhook_queue_length</code></td>
+<td>Webhook queue length. <br><br>Type: gauge</td>
+<td><code>server</code>, <code>name</code>, <code>endpoint</code></td>
+</tr>
+<tr>
+<td><code>minio_logger_webhook_total_message</code></td>
+<td>Total number of messages sent to this target. <br><br>Type: counter</td>
+<td><code>server</code>, <code>name</code>, <code>endpoint</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="notification-metrics">Notification metrics<a class="headerlink" href="#notification-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about the MinIO notification functionality.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/notification</code></td>
+<td>Metrics related to notification functionality.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="notification"><code>/notification</code><a class="headerlink" href="#notification" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_notification_current_send_in_progress</code></td>
+<td>Number of concurrent async Send calls active to all targets. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_notification_events_errors_total</code></td>
+<td>Total number of events that failed to send to the targets. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_notification_events_sent_total</code></td>
+<td>Total number of events sent to the targets. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_notification_events_skipped_total</code></td>
+<td>Number of events not sent to the targets due to the in-memory queue being full. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="replication-metrics">Replication metrics<a class="headerlink" href="#replication-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about MinIO site and bucket replication.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/bucket/replication</code></td>
+<td>Metrics related to bucket replication.</td>
+</tr>
+<tr>
+<td><code>/replication</code></td>
+<td>Metrics related to site replication.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="replication"><code>/replication</code><a class="headerlink" href="#replication" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_replication_average_active_workers</code></td>
+<td>Average number of active replication workers. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_average_queued_bytes</code></td>
+<td>Average number of bytes queued for replication since server start. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_average_queued_count</code></td>
+<td>Average number of objects queued for replication since server start. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_average_data_transfer_rate</code></td>
+<td>Average replication data transfer rate in bytes/sec. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_current_active_workers</code></td>
+<td>Total number of active replication workers. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_current_data_transfer_rate</code></td>
+<td>Current replication data transfer rate in bytes/sec. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_last_minute_queued_bytes</code></td>
+<td>Number of bytes queued for replication in the last full minute. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_last_minute_queued_count</code></td>
+<td>Number of objects queued for replication in the last full minute. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_max_active_workers</code></td>
+<td>Maximum number of active replication workers seen since server start. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_max_queued_bytes</code></td>
+<td>Maximum number of bytes queued for replication since server start. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_max_queued_count</code></td>
+<td>Maximum number of objects queued for replication since server start. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_max_data_transfer_rate</code></td>
+<td>Maximum replication data transfer rate in bytes/sec since server start. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_replication_recent_backlog_count</code></td>
+<td>Total number of objects seen in replication backlog in the last 5 minutes <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td>#### <code>/bucket/replication</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_bucket_replication_last_hour_failed_bytes</code></td>
+<td>Total number of bytes on a bucket which failed to replicate at least once in the last hour. <br><br>Type: gauge</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_last_hour_failed_count</code></td>
+<td>Total number of objects on a bucket which failed to replicate in the last hour. <br><br>Type: gauge</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_last_minute_failed_bytes</code></td>
+<td>Total number of bytes on a bucket which failed at least once in the last full minute. <br><br>Type: gauge</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_last_minute_failed_count</code></td>
+<td>Total number of objects on a bucket which failed to replicate in the last full minute. <br><br>Type: gauge</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_latency_ms</code></td>
+<td>Replication latency on a bucket in milliseconds. <br><br>Type: gauge</td>
+<td><code>bucket</code>, <code>operation</code>, <code>range</code>, <code>targetArn</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_delete_tagging_requests_total</code></td>
+<td>Number of DELETE tagging requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_get_requests_failures</code></td>
+<td>Number of failures in GET requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_get_requests_total</code></td>
+<td>Number of GET requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_get_tagging_requests_failures</code></td>
+<td>Number of failures in GET tagging requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_get_tagging_requests_total</code></td>
+<td>Number of GET tagging requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_head_requests_failures</code></td>
+<td>Number of failures in HEAD requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_head_requests_total</code></td>
+<td>Number of HEAD requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_put_tagging_requests_failures</code></td>
+<td>Number of failures in PUT tagging requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_put_tagging_requests_total</code></td>
+<td>Number of PUT tagging requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_sent_bytes</code></td>
+<td>Total number of bytes replicated to the target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_sent_count</code></td>
+<td>Total number of objects replicated to the target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_total_failed_bytes</code></td>
+<td>Total number of bytes failed to replicate at least once since server start. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_total_failed_count</code></td>
+<td>Total number of objects that failed to replicate since server start. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_bucket_replication_proxied_delete_tagging_requests_failures</code></td>
+<td>Number of failures in DELETE tagging requests proxied to replication target. <br><br>Type: counter</td>
+<td><code>bucket</code>, <code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-metrics">Scanner metrics<a class="headerlink" href="#scanner-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about the MinIO scanner.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/scanner</code></td>
+<td>Metrics related to the MinIO scanner.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="scanner"><code>/scanner</code><a class="headerlink" href="#scanner" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_scanner_bucket_scans_finished</code></td>
+<td>Total number of bucket scans completed since server start. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_scanner_bucket_scans_started</code></td>
+<td>Total number of bucket scans started since server start. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_scanner_directories_scanned</code></td>
+<td>Total number of directories scanned since server start. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_scanner_last_activity_seconds</code></td>
+<td>Time elapsed (in seconds) since last scan activity. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_scanner_objects_scanned</code></td>
+<td>Total number of unique objects scanned since server start. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_scanner_versions_scanned</code></td>
+<td>Total number of object versions scanned since server start. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="system-metrics">System metrics<a class="headerlink" href="#system-metrics" title="Permanent link">&para;</a></h3>
+<p>Metrics about the MinIO process and the node.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/system/cpu</code></td>
+<td>Metrics about CPUs on the system.</td>
+</tr>
+<tr>
+<td><code>/system/drive</code></td>
+<td>Metrics about drives on the system.</td>
+</tr>
+<tr>
+<td><code>/system/network/internode</code></td>
+<td>Metrics about internode requests made by the node.</td>
+</tr>
+<tr>
+<td><code>/system/memory</code></td>
+<td>Metrics about memory on the system.</td>
+</tr>
+<tr>
+<td><code>/system/process</code></td>
+<td>Standard process metrics.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="systemdrive"><code>/system/drive</code><a class="headerlink" href="#systemdrive" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_system_drive_used_bytes</code></td>
+<td>Total storage used on a drive in bytes. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_free_bytes</code></td>
+<td>Total storage free on a drive in bytes. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_total_bytes</code></td>
+<td>Total storage available on a drive in bytes. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_used_inodes</code></td>
+<td>Total used inodes on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_free_inodes</code></td>
+<td>Total free inodes on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_total_inodes</code></td>
+<td>Total inodes available on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_timeout_errors_total</code></td>
+<td>Total timeout errors on a drive. <br><br>Type: counter</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_io_errors_total</code></td>
+<td>Total I/O errors on a drive. <br><br>Type: counter</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_availability_errors_total</code></td>
+<td>Total availability errors (I/O errors, timeouts) on a drive. <br><br>Type: counter</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_waiting_io</code></td>
+<td>Total waiting I/O operations on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_api_latency_micros</code></td>
+<td>Average last minute latency in µs for drive API storage operations. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>api</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_offline_count</code></td>
+<td>Count of offline drives. <br><br>Type: gauge</td>
+<td><code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_online_count</code></td>
+<td>Count of online drives. <br><br>Type: gauge</td>
+<td><code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_count</code></td>
+<td>Count of all drives. <br><br>Type: gauge</td>
+<td><code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_health</code></td>
+<td>Drive health (0 = offline, 1 = healthy, 2 = healing). <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_reads_per_sec</code></td>
+<td>Reads per second on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_reads_kb_per_sec</code></td>
+<td>Kilobytes read per second on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_reads_await</code></td>
+<td>Average time for read requests served on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_writes_per_sec</code></td>
+<td>Writes per second on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_writes_kb_per_sec</code></td>
+<td>Kilobytes written per second on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_writes_await</code></td>
+<td>Average time for write requests served on a drive. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_drive_perc_util</code></td>
+<td>Percentage of time the disk was busy. <br><br>Type: gauge</td>
+<td><code>drive</code>, <code>set_index</code>, <code>drive_index</code>, <code>pool_index</code>, <code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="systemmemory"><code>/system/memory</code><a class="headerlink" href="#systemmemory" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_system_memory_used</code></td>
+<td>Used memory on the node. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_memory_used_perc</code></td>
+<td>Used memory percentage on the node. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_memory_free</code></td>
+<td>Free memory on the node. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_memory_total</code></td>
+<td>Total memory on the node. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_memory_buffers</code></td>
+<td>Buffers memory on the node. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_memory_cache</code></td>
+<td>Cache memory on the node. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_memory_shared</code></td>
+<td>Shared memory on the node. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_memory_available</code></td>
+<td>Available memory on the node. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="systemcpu"><code>/system/cpu</code><a class="headerlink" href="#systemcpu" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_system_cpu_avg_idle</code></td>
+<td>Average CPU idle time. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_cpu_avg_iowait</code></td>
+<td>Average CPU IOWait time. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_cpu_load</code></td>
+<td>CPU load average 1min. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_cpu_load_perc</code></td>
+<td>CPU load average 1min (percentage). <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_cpu_nice</code></td>
+<td>CPU nice time. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_cpu_steal</code></td>
+<td>CPU steal time. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_cpu_system</code></td>
+<td>CPU system time. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_cpu_user</code></td>
+<td>CPU user time. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="systemnetworkinternode"><code>/system/network/internode</code><a class="headerlink" href="#systemnetworkinternode" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_system_network_internode_errors_total</code></td>
+<td>Total number of failed internode calls. <br><br>Type: counter</td>
+<td><code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_system_network_internode_dial_errors_total</code></td>
+<td>Total number of internode TCP dial timeouts and errors. <br><br>Type: counter</td>
+<td><code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_system_network_internode_dial_avg_time_nanos</code></td>
+<td>Average dial time of internodes TCP calls in nanoseconds. <br><br>Type: gauge</td>
+<td><code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_system_network_internode_sent_bytes_total</code></td>
+<td>Total number of bytes sent to other peer nodes. <br><br>Type: counter</td>
+<td><code>server</code>, <code>pool_index</code></td>
+</tr>
+<tr>
+<td><code>minio_system_network_internode_recv_bytes_total</code></td>
+<td>Total number of bytes received from other peer nodes. <br><br>Type: counter</td>
+<td><code>server</code>, <code>pool_index</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="systemprocess"><code>/system/process</code><a class="headerlink" href="#systemprocess" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minio_system_process_locks_read_total</code></td>
+<td>Number of current READ locks on this peer. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_locks_write_total</code></td>
+<td>Number of current WRITE locks on this peer. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_cpu_total_seconds</code></td>
+<td>Total user and system CPU time spent in seconds. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_go_routine_total</code></td>
+<td>Total number of go routines running. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_io_rchar_bytes</code></td>
+<td>Total bytes read by the process from the underlying storage system including cache, /proc/[pid]/io rchar. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_io_read_bytes</code></td>
+<td>Total bytes read by the process from the underlying storage system, /proc/[pid]/io read_bytes. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_io_wchar_bytes</code></td>
+<td>Total bytes written by the process to the underlying storage system including page cache, /proc/[pid]/io wchar. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_io_write_bytes</code></td>
+<td>Total bytes written by the process to the underlying storage system, /proc/[pid]/io write_bytes. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_start_time_seconds</code></td>
+<td>Start time for MinIO process in seconds since Unix epoch. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_uptime_seconds</code></td>
+<td>Uptime for MinIO process in seconds. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_file_descriptor_limit_total</code></td>
+<td>Limit on total number of open file descriptors for the MinIO Server process. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_file_descriptor_open_total</code></td>
+<td>Total number of open file descriptors by the MinIO Server process. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_syscall_read_total</code></td>
+<td>Total read SysCalls to the kernel. /proc/[pid]/io syscr. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_syscall_write_total</code></td>
+<td>Total write SysCalls to the kernel. /proc/[pid]/io syscw. <br><br>Type: counter</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_resident_memory_bytes</code></td>
+<td>Resident memory size in bytes. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_virtual_memory_bytes</code></td>
+<td>Virtual memory size in bytes. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+<tr>
+<td><code>minio_system_process_virtual_memory_max_bytes</code></td>
+<td>Maximum virtual memory size in bytes. <br><br>Type: gauge</td>
+<td><code>server</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../prometheus/grafana/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Grafana Dashboards">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Grafana Dashboards
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../logging/" class="md-footer__link md-footer__link--next" aria-label="Next: Logging">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Logging
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 libreFS contributors &mdash; <a href="https://www.gnu.org/licenses/agpl-3.0.html">GNU AGPL v3.0</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/libreFS/libreFS" target="_blank" rel="noopener" title="libreFS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "toc.follow"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
