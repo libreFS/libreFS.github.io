@@ -1,0 +1,116 @@
+name: Build and Deploy Docs
+
+# Trigger manually after cutting a server release, or automatically
+# when a release is published via repository_dispatch from libreFS/libreFS.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Server release tag (e.g. RELEASE.2026-04-12T22-27-24Z)'
+        required: true
+        default: 'RELEASE.2026-04-12T22-27-24Z'
+      set_latest:
+        description: 'Mark this version as latest'
+        required: false
+        default: 'true'
+        type: boolean
+
+  repository_dispatch:
+    types: [docs-deploy]
+    # Payload: { "version": "RELEASE.2026-...", "set_latest": true }
+
+concurrency:
+  group: docs-deploy
+  cancel-in-progress: false   # never cancel a running deploy
+
+jobs:
+  build-and-deploy:
+    name: Build docs for ${{ github.event.inputs.version || github.event.client_payload.version }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Resolve version
+        id: vars
+        run: |
+          VERSION="${{ github.event.inputs.version || github.event.client_payload.version }}"
+          SET_LATEST="${{ github.event.inputs.set_latest || github.event.client_payload.set_latest || 'true' }}"
+          echo "version=$VERSION"      >> "$GITHUB_OUTPUT"
+          echo "set_latest=$SET_LATEST" >> "$GITHUB_OUTPUT"
+
+      # ── 1. Check out the website repo (where we'll commit the built docs) ──
+      - name: Checkout website repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── 2. Check out the server repo at the requested release tag ──────────
+      - name: Checkout libreFS server at ${{ steps.vars.outputs.version }}
+        uses: actions/checkout@v4
+        with:
+          repository: libreFS/libreFS
+          ref: ${{ steps.vars.outputs.version }}
+          path: _server
+
+      # ── 3. Build the docs ────────────────────────────────────────────────────
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: pip
+
+      - name: Install MkDocs + Material
+        run: pip install mkdocs-material mike
+
+      - name: Build MkDocs
+        run: |
+          cd _server
+          mkdocs build --site-dir ../docs-build --strict
+
+      # ── 4. Deploy versioned output into docs/ in this repo ──────────────────
+      - name: Deploy docs
+        env:
+          VERSION: ${{ steps.vars.outputs.version }}
+          SET_LATEST: ${{ steps.vars.outputs.set_latest }}
+        run: |
+          set -euo pipefail
+
+          # Copy built site into docs/<version>/
+          mkdir -p "docs/$VERSION"
+          rsync -a --delete docs-build/ "docs/$VERSION/"
+
+          # Update latest/ if requested
+          if [ "$SET_LATEST" = "true" ]; then
+            mkdir -p docs/latest
+            rsync -a --delete docs-build/ docs/latest/
+          fi
+
+          # Regenerate docs/versions.json for the MkDocs Material version selector
+          python3 - <<'PYEOF'
+          import json, os, pathlib, re
+
+          docs_dir = pathlib.Path("docs")
+          tag_re = re.compile(r'^RELEASE\.\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}Z$')
+
+          versions = []
+          for d in sorted(docs_dir.iterdir(), reverse=True):
+              if d.is_dir() and tag_re.match(d.name):
+                  versions.append({
+                      "version": d.name,
+                      "title":   d.name,
+                      "aliases": ["latest"] if d.name == os.environ["VERSION"] and os.environ["SET_LATEST"] == "true" else []
+                  })
+
+          pathlib.Path("docs/versions.json").write_text(json.dumps(versions, indent=2))
+          print(f"Wrote versions.json with {len(versions)} version(s)")
+          PYEOF
+
+      # ── 5. Commit and push ───────────────────────────────────────────────────
+      - name: Commit docs
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add docs/
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "docs: deploy ${{ steps.vars.outputs.version }}"
+          git push

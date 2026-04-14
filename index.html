@@ -3,14 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>libreFS — Community S3-Compatible Object Storage</title>
-  <meta name="description" content="libreFS is a community-maintained, fully open-source S3-compatible object storage server — preserving the features MinIO moved to their proprietary AIStor product.">
-  <meta property="og:title" content="libreFS — Community S3-Compatible Object Storage">
-  <meta property="og:description" content="Free, open-source S3-compatible object storage. WebUI, LDAP/OIDC, distributed mode — preserved for the community.">
-  <meta property="og:url" content="https://librefs.org">
+
+  <!-- Primary SEO -->
+  <title>libreFS — Open Source MinIO Alternative | S3-Compatible Object Storage</title>
+  <meta name="description" content="libreFS is the leading open-source MinIO alternative. Full S3-compatible object storage with WebUI, LDAP/OIDC, distributed erasure coding and pre-built binaries — free forever under AGPL-3.0.">
+  <meta name="keywords" content="MinIO alternative, open source S3 storage, S3 compatible object storage, self-hosted S3, AGPL object storage, libreFS, distributed object storage, LDAP S3, OIDC S3, open source MinIO fork">
+  <link rel="canonical" href="https://librefs.org/">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://librefs.org/">
+  <meta property="og:title"       content="libreFS — Open Source MinIO Alternative">
+  <meta property="og:description" content="Full-featured S3-compatible object storage — WebUI, LDAP/OIDC, distributed mode, pre-built binaries. Free forever under AGPL-3.0.">
+  <meta property="og:site_name"   content="libreFS">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="libreFS — Open Source MinIO Alternative">
+  <meta name="twitter:description" content="Full-featured S3-compatible object storage. WebUI, LDAP/OIDC, distributed mode. Free forever under AGPL-3.0.">
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "libreFS",
+    "url": "https://librefs.org",
+    "description": "libreFS is a community-maintained open-source S3-compatible object storage server, forked from MinIO to preserve the WebUI, LDAP/OIDC authentication, distributed erasure coding, and pre-built binaries that MinIO moved to their proprietary AIStor product.",
+    "applicationCategory": "StorageApplication",
+    "operatingSystem": "Linux, macOS, Windows",
+    "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+    "downloadUrl": "https://librefs.org/downloads.html",
+    "softwareVersion": "RELEASE.2026-04-12T22-27-24Z",
+    "releaseNotes": "https://github.com/libreFS/libreFS/releases",
+    "codeRepository": "https://github.com/libreFS/libreFS",
+    "programmingLanguage": "Go",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "libreFS contributors",
+      "url": "https://librefs.org"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 48'><rect x='0' y='0' width='44' height='12' rx='6' fill='%230ea5e9'/><rect x='0' y='18' width='44' height='12' rx='6' fill='%230ea5e9' opacity='.55'/><rect x='0' y='36' width='44' height='12' rx='6' fill='%230ea5e9' opacity='.22'/></svg>">
 </head>
 <body>
@@ -31,6 +75,7 @@
       <li><a href="#features">Features</a></li>
       <li><a href="#quickstart">Quick Start</a></li>
       <li><a href="downloads.html">Downloads</a></li>
+      <li><a href="docs/latest/">Docs</a></li>
       <li><a href="#contribute">Contribute</a></li>
       <li>
         <a href="https://github.com/libreFS/libreFS" class="nav-cta-gh" target="_blank" rel="noopener">
@@ -59,11 +104,11 @@
         <span class="hero-badge-dot"></span>
         AGPL-3.0 &nbsp;·&nbsp; Community Maintained
       </div>
-      <h1>Object storage<br>that <em>stays free.</em></h1>
+      <h1>The open-source<br><em>MinIO alternative.</em></h1>
       <p class="hero-sub">
-        libreFS is a community fork of MinIO — preserving the full-featured,
-        open-source S3-compatible object store that organizations depend on,
-        permanently under AGPL-3.0.
+        libreFS is the community fork of MinIO that keeps the full-featured,
+        S3-compatible object store free — WebUI, LDAP/OIDC, distributed mode,
+        and pre-built binaries included. Permanently under AGPL-3.0.
       </p>
       <div class="hero-actions">
         <a href="downloads.html" class="btn btn-primary">
@@ -389,6 +434,7 @@
         <li><a href="https://github.com/libreFS/librefs-cli" target="_blank" rel="noopener">lc CLI</a></li>
         <li><a href="https://github.com/libreFS/libreFS/releases" target="_blank" rel="noopener">Release Notes</a></li>
         <li><a href="downloads.html">Downloads</a></li>
+        <li><a href="docs/latest/">Documentation</a></li>
       </ul>
     </div>
     <div class="footer-col">
