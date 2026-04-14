@@ -62,6 +62,29 @@ jobs:
       - name: Install MkDocs + Material
         run: pip install -r requirements.txt
 
+      - name: Ensure docs index exists
+        env:
+          VERSION: ${{ steps.vars.outputs.version }}
+        run: |
+          if [ ! -f _server/docs/index.md ]; then
+            cat > _server/docs/index.md <<'EOF'
+          # libreFS Documentation
+
+          Welcome to the libreFS documentation.
+
+          libreFS is a community-maintained, fully open-source S3-compatible object storage server —
+          a fork of MinIO preserving LDAP/OIDC, distributed mode, and a full WebUI under AGPL-3.0.
+
+          Use the navigation above to browse topics, or jump straight to:
+
+          - [Getting Started with Docker](docker/README.md)
+          - [Distributed Mode](distributed/README.md)
+          - [Authentication / LDAP / OIDC](sts/README.md)
+          - [Encryption & KMS](kms/README.md)
+          - [Metrics & Observability](metrics/README.md)
+          EOF
+          fi
+
       - name: Build MkDocs
         run: mkdocs build --site-dir docs-build
 
